@@ -90,11 +90,10 @@ int main()
             break;
         case 'c':
             if(check_sudoku(arraySudoku) == 1){
-                printf("Congratulations! You won!\n");
+
                 won = 1;
-                continue;
             }else{
-                printf("Your solution is not correct.\n");
+                won = -1;
             }
             break;
         default:
@@ -131,9 +130,14 @@ int main()
             }
         }
         system("cls");
-
+        if(won == -1){
+            printf("Your solution is not correct.\n");
+            won = 0;
+        } else if(won == 1){
+            printf("Congratulations! You won!\n");
+        }
         print_sudoku(arraySudoku);
     }
 
-    while(won == 0);
+    while(won != 1);
 }
