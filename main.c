@@ -67,40 +67,52 @@ int main()
 
     }
 
-    int zeile = 0;
-    int spalte = 0;
-    char zahl;
+    int row = 0;
+    int column = 0;
+    char value;
 
-    char option[5];
+    char option[6];
     print_sudoku(arraySudoku);
+
 
     do
     {
-
-        scanf("%s", &option);
+        fgets(option, 6 ,stdin);
+        //scanf("%s", &option);
         fflush(stdin);
         printf("%s", option);
+
+
 
         switch(option[0])
         {
         case 'h':
             break;
-        case 's':
+        case 'c':
             break;
         default:
             //TODO: Anpassen check if option[0,2,4] is a number and if option[1,3] is blank
-            printf("Zeile\n");
-            scanf("%d", &zeile);
-            fflush(stdin);
-            printf("Spalte\n");
-            scanf("%d", &spalte);
-            fflush(stdin);
-            printf("Zahl\n");
-            scanf("%c", &zahl);
-            fflush(stdin);
-            if (zahl >= '1' && zahl <= '9')
-            {
-                arraySudoku[zeile-1][spalte-1].value = zahl-48;
+
+            if(option[0] >= '1' && option[0] <= '9'){
+                column = option[0]-48;
+            } else{
+                print_error("ERROR: Incorrect input!\n");
+                print_sudoku(arraySudoku);
+                continue;
+            }
+            if(option[2] >= '1' && option[2] <= '9'){
+                row = option[2]-48;
+            } else{
+                print_error("ERROR: Incorrect input!\n");
+                print_sudoku(arraySudoku);
+                continue;
+            }
+            if(option[4] >= '1' && option[4] <= '9'){
+                arraySudoku[row-1][column-1].value = option[4]-48;
+            } else{
+                print_error("ERROR: Incorrect input!\n");
+                print_sudoku(arraySudoku);
+                continue;
             }
         }
         system("cls");

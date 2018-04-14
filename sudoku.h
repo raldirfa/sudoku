@@ -11,5 +11,6 @@ typedef struct SudokuField
 
 void fill_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE]);
 void print_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE]);
+void print_error(char error[]);
 
 #endif // SUDOKU_H_INCLUDED

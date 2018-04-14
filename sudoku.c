@@ -35,5 +35,13 @@ void print_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE])
         printf("|\n");
     }
     printf("+---------+---------+---------+\n");
+    printf("\nInput: '$column $row $value' OR 'h' for help OR 'c' to check your solution \n");
+}
+
+void print_error(char error[]){
+
+    system("cls");
+
+    printf("%s", error);
 }
 
