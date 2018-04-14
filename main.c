@@ -80,9 +80,6 @@ int main()
         fgets(option, 6 ,stdin);
         //scanf("%s", &option);
         fflush(stdin);
-        printf("%s", option);
-
-
 
         switch(option[0])
         {
@@ -113,7 +110,7 @@ int main()
                 print_sudoku(arraySudoku);
                 continue;
             }
-            if(option[4] >= '1' && option[4] <= '9'){
+            if(option[4] >= '0' && option[4] <= '9'){
 
                 if(arraySudoku[row-1][column-1].isEditable == 1){
                     arraySudoku[row-1][column-1].value = option[4]-48;

@@ -29,7 +29,12 @@ void print_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE])
             {
                 printf("|");
             }
-            printf(" %d ", arraySudoku[i][j].value);
+            if(arraySudoku[i][j].value != 0){
+                printf(" %d ", arraySudoku[i][j].value);
+            } else{
+                printf("   ");
+            }
+
         }
 
         printf("|\n");
