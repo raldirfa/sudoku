@@ -6,6 +6,7 @@
 int main()
 {
     struct SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE];
+    int won = 0;
 
     fill_sudoku(arraySudoku);
 
@@ -88,6 +89,13 @@ int main()
         case 'h':
             break;
         case 'c':
+            if(check_sudoku(arraySudoku) == 1){
+                printf("Congratulations! You won!\n");
+                won = 1;
+                continue;
+            }else{
+                printf("Your solution is not correct.\n");
+            }
             break;
         default:
             //TODO: Anpassen check if option[0,2,4] is a number and if option[1,3] is blank
@@ -127,5 +135,5 @@ int main()
         print_sudoku(arraySudoku);
     }
 
-    while(1);
+    while(won == 0);
 }

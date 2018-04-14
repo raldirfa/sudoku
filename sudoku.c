@@ -48,16 +48,75 @@ void print_error(char error[]){
 
 int check_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE]){
 
-    int i, j;
-    checkRows:{
+    int i, j, k, l, x;
+    static int initCheck[9] = {0,0,0,0,0,0,0,0,0};
+    int checkRow[9] = {0,0,0,0,0,0,0,0,0};
+    int checkCol[9] = {0,0,0,0,0,0,0,0,0};
+    int checkBox[9] = {0,0,0,0,0,0,0,0,0};
 
+    //checkRows:
+    {
+        for(i = 0; i < SUDOKU_SIZE; i++){
+            memmove(checkRow,initCheck,sizeof(checkRow));
+            for(j = 0; j < SUDOKU_SIZE; j++){
+                x = arraySudoku[i][j].value;
+                if(x == 0){
+                    return 0;
+                }
+                if( checkRow[x-1] == 0){
+                    checkRow[x-1] = 1;
+                } else {
+                    return 0;
+                }
+
+            }
+        }
     }
 
-    checkCols:{
+    //checkCols:
+    {
+        for(i = 0; i < SUDOKU_SIZE; i++){
+                memmove(checkCol,initCheck,sizeof(checkCol));
+            for(j = 0; j < SUDOKU_SIZE; j++){
+                x = arraySudoku[j][i].value;
+                if(x == 0){
+                    return 0;
+                }
+                if( checkCol[x-1] == 0){
+                    checkCol[x-1] = 1;
+                } else {
+                    return 0;
+                }
+
+            }
+        }
     }
 
-    checkBoxes:{
+    //checkBoxes:
+    {
+        //i and j point to the first field in every 3x3 box
+        //k and l iterate through every field in the box
+        for(i = 0; i < SUDOKU_SIZE; i+3){
+            for(j = 0; j < SUDOKU_SIZE; j+3){
+                memmove(checkBox,initCheck,sizeof(checkBox));
+                for(k = 0; k < 3; k++){
+                    for(l = 0; l < 3 ; l++){
+                        x = arraySudoku[i+k][j+l].value;
+                        if(x == 0){
+                            return 0;
+                        }
+                        if( checkBox[x-1] == 0){
+                            checkBox[x-1] = 1;
+                        } else {
+                            return 0;
+                        }
+
+                    }
+                }
+            }
+        }
     }
+    return 1;
 }
 
 void set_editable(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE]){
