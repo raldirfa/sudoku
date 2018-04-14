@@ -64,12 +64,11 @@ int main()
         arraySudoku[8][7].value = 2;
         arraySudoku[8][8].value = 5;
 
-
     }
+    set_editable(arraySudoku);
 
     int row = 0;
     int column = 0;
-    char value;
 
     char option[6];
     print_sudoku(arraySudoku);
@@ -96,21 +95,29 @@ int main()
             if(option[0] >= '1' && option[0] <= '9'){
                 column = option[0]-48;
             } else{
-                print_error("ERROR: Incorrect input!\n");
+                print_error("ERROR: Incorrect input!");
                 print_sudoku(arraySudoku);
                 continue;
             }
             if(option[2] >= '1' && option[2] <= '9'){
                 row = option[2]-48;
             } else{
-                print_error("ERROR: Incorrect input!\n");
+                print_error("ERROR: Incorrect input!");
                 print_sudoku(arraySudoku);
                 continue;
             }
             if(option[4] >= '1' && option[4] <= '9'){
-                arraySudoku[row-1][column-1].value = option[4]-48;
+
+                if(arraySudoku[row-1][column-1].isEditable == 1){
+                    arraySudoku[row-1][column-1].value = option[4]-48;
+                }else{
+                    print_error("You can't edit this field");
+                    print_sudoku(arraySudoku);
+                    continue;
+                }
+
             } else{
-                print_error("ERROR: Incorrect input!\n");
+                print_error("ERROR: Incorrect input!");
                 print_sudoku(arraySudoku);
                 continue;
             }
