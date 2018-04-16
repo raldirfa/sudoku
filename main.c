@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "sudoku.h"
 
@@ -76,6 +77,10 @@ int new_game()
     char option[6];
     print_sudoku(arraySudoku);
 
+    time_t now;
+    time_t start;
+    time(&start);
+
     do
     {
         fgets(option, 6 ,stdin);
@@ -129,6 +134,11 @@ int new_game()
             }
         }
         system("cls");
+
+        time(&now);
+        double seconds = difftime(now, start);
+        printf("%.f seconds have passed since the beginning of the game.\n", seconds);
+
         if(won == -1){
             printf("Your solution is not correct.\n");
             won = 0;
