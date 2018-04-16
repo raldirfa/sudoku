@@ -3,14 +3,47 @@
 
 #include "sudoku.h"
 
+int new_game();
+
 int main()
 {
-    struct SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE];
+    char option;
+    int exit = 0;
+
+    do
+    {
+        system("cls");
+        printf("[1] -> Choose Sudoku\n"
+               "[2] -> Generate Sudoku\n"
+               "[3] -> Load Sudoku\n"
+               "[x] -> Exit\n\n");
+        option = getchar();
+        fflush(stdin);
+        switch(option)
+        {
+        case '1':
+        case '2':
+        case '3':
+            new_game();
+            break;
+        case '4':
+        case 'x':
+            exit = 1;
+            break;
+        default:
+            break;
+        }
+    } while (!exit);
+    return 0;
+}
+
+int new_game()
+{
+    system("cls");
     int won = 0;
-
+    SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE];
     fill_sudoku(arraySudoku);
-
-    //Spiel 1
+        //Spiel 1
     {
         arraySudoku[0][0].value = 7;
         arraySudoku[0][1].value = 9;
@@ -64,7 +97,6 @@ int main()
         arraySudoku[8][4].value = 8;
         arraySudoku[8][7].value = 2;
         arraySudoku[8][8].value = 5;
-
     }
     set_editable(arraySudoku);
 
@@ -74,7 +106,6 @@ int main()
     char option[6];
     print_sudoku(arraySudoku);
 
-
     do
     {
         fgets(option, 6 ,stdin);
@@ -83,8 +114,6 @@ int main()
 
         switch(option[0])
         {
-        case 'h':
-            break;
         case 'c':
             if(check_sudoku(arraySudoku) == 1){
                 won = 1;
@@ -92,6 +121,10 @@ int main()
                 won = -1;
             }
             break;
+        case 'h':
+            break;
+        case 'x':
+            return 0;
         default:
             //TODO: Anpassen check if option[0,2,4] is a number and if option[1,3] is blank
 
@@ -136,4 +169,5 @@ int main()
     }
 
     while(won != 1);
+    return 0;
 }

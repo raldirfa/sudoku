@@ -41,7 +41,11 @@ void print_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE])
         printf("|\n");
     }
     printf("+---------+---------+---------+\n");
-    printf("\nInput: '$column $row $value' OR 'h' for help OR 'c' to check your solution \n");
+    printf("\nInput:\n"
+           "[$column $row $value]\n"
+           "[h] for help\n"
+           "[c] to check your solution\n"
+           "[x] to exit the game\n\n");
 }
 
 void print_error(char error[]){
