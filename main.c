@@ -44,7 +44,7 @@ int new_game()
     //  SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE];
     //  fill_sudoku(arraySudoku);
 
-    /*
+
     // Level 1
     SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE] = {   {{7},{9},{0},{0},{5},{8},{2},{0},{0}},
                                                             {{0},{0},{4},{6},{0},{7},{0},{5},{8}},
