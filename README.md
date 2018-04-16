@@ -1,6 +1,6 @@
 # Sudoku
----
-Sudoku school project
+
+Sudoku Schulprojekt
 
 ### Anforderungen:
 - [x] Anzeige des Gitters
@@ -8,7 +8,7 @@ Sudoku school project
 - [x] Spieler kann ein Feld bearbeiten. Möglich: (leer, 1-9)
 - [x] Sichere Verarbeitung der Benutzereingaben
 - [ ] Auswahl eines zu spielenden Sudokus
-- [ ] Erkkennung einer korrekten Sudoku Lösung
+- [x] Erkennung einer korrekten Sudoku Lösung
 - [ ] Zeitmessung (Am Ende, Nach jedem Zug oder laufend)
 
 ### Erweiterungen
