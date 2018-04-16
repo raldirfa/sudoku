@@ -87,7 +87,6 @@ int main()
             break;
         case 'c':
             if(check_sudoku(arraySudoku) == 1){
-
                 won = 1;
             }else{
                 won = -1;

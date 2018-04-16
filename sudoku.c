@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "sudoku.h"
 
 void fill_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE])
@@ -101,8 +102,8 @@ int check_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE]){
     {
         //i and j point to the first field in every 3x3 box
         //k and l iterate through every field in the box
-        for(i = 0; i < SUDOKU_SIZE; i+3){
-            for(j = 0; j < SUDOKU_SIZE; j+3){
+        for(i = 0; i < SUDOKU_SIZE; i = i + 3){
+            for(j = 0; j < SUDOKU_SIZE; j = j + 3){
                 memmove(checkBox,initCheck,sizeof(checkBox));
                 for(k = 0; k < 3; k++){
                     for(l = 0; l < 3 ; l++){
