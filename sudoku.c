@@ -3,20 +3,6 @@
 #include <string.h>
 #include "sudoku.h"
 
-void print_seperator()
-{
-    int i, j;
-    for (i = 0; i < SUDOKU_SEPERATOR; i++)
-    {
-        printf("+");
-        for (j = 0; j < SUDOKU_SEPERATOR * 3; j++)
-        {
-            printf("-");
-        }
-    }
-    printf("+\n");
-}
-
 void fill_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE])
 {
     int i, j;
@@ -75,16 +61,6 @@ void print_error(char error[]){
 
     printf("%s", error);
     printf("\n");
-}
-
-int fill_check_array(int array[SUDOKU_SIZE])
-{
-    int i;
-    for (i = 0; i < SUDOKU_SIZE; i++)
-    {
-        array[i] = 0;
-    }
-    return 0;
 }
 
 int check_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE]){
@@ -181,3 +157,28 @@ void set_editable(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE]){
     }
 }
 
+// Static functions
+
+static int fill_check_array(int array[SUDOKU_SIZE])
+{
+    int i;
+    for (i = 0; i < SUDOKU_SIZE; i++)
+    {
+        array[i] = 0;
+    }
+    return 0;
+}
+
+static void print_seperator()
+{
+    int i, j;
+    for (i = 0; i < SUDOKU_SEPERATOR; i++)
+    {
+        printf("+");
+        for (j = 0; j < SUDOKU_SEPERATOR * 3; j++)
+        {
+            printf("-");
+        }
+    }
+    printf("+\n");
+}
