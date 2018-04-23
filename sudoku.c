@@ -3,6 +3,31 @@
 #include <string.h>
 #include "sudoku.h"
 
+// Static functions
+
+static void fill_check_array(int array[SUDOKU_SIZE])
+{
+    int i;
+    for (i = 0; i < SUDOKU_SIZE; i++)
+    {
+        array[i] = 0;
+    }
+}
+
+static void print_horizontal_seperator()
+{
+    int i, j;
+    for (i = 0; i < SUDOKU_SEPERATOR; i++)
+    {
+        printf("+");
+        for (j = 0; j < SUDOKU_SEPERATOR * 3; j++)
+        {
+            printf("-");
+        }
+    }
+    printf("+\n");
+}
+
 void fill_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE])
 {
     int i, j;
@@ -22,7 +47,7 @@ void print_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE])
     {
         if(i%SUDOKU_SEPERATOR == 0)
         {
-            print_seperator();
+            print_horizontal_seperator();
         }
         for (j = 0; j < SUDOKU_SIZE; j++)
         {
@@ -47,7 +72,7 @@ void print_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE])
 
         printf("|\n");
     }
-    print_seperator();
+    print_horizontal_seperator();
     printf("\nInput:\n"
            "[$column $row $value]\n"
            "[h] for help\n"
@@ -155,30 +180,4 @@ void set_editable(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE]){
 
         }
     }
-}
-
-// Static functions
-
-static int fill_check_array(int array[SUDOKU_SIZE])
-{
-    int i;
-    for (i = 0; i < SUDOKU_SIZE; i++)
-    {
-        array[i] = 0;
-    }
-    return 0;
-}
-
-static void print_seperator()
-{
-    int i, j;
-    for (i = 0; i < SUDOKU_SEPERATOR; i++)
-    {
-        printf("+");
-        for (j = 0; j < SUDOKU_SEPERATOR * 3; j++)
-        {
-            printf("-");
-        }
-    }
-    printf("+\n");
 }
