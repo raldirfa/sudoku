@@ -5,7 +5,7 @@
 #include "file_operations.h"
 
 // From https://stackoverflow.com/a/3463793
-int read_file(int arrayToFill[], char path[])
+int read_file_and_fill_array(int arrayToFill[], char path[])
 {
     FILE *file;
     int c;
@@ -14,7 +14,7 @@ int read_file(int arrayToFill[], char path[])
     file = fopen(path, "r");
     if (file) {
         while ((c = getc(file)) != EOF){
-            if (c != 10)
+            if (c != '\n')
             {
                 arrayToFill[i] = c - 48;
                 i++;

@@ -88,7 +88,7 @@ int new_game(char path[])
     if (strlen(path) != 0)
     {
         int arrayFile[SUDOKU_BOARD_SIZE + 1];
-        error = read_file(arrayFile, path);
+        error = read_file_and_fill_array(arrayFile, path);
         import_to_sudoku(arraySudoku, arrayFile);
     }
 
