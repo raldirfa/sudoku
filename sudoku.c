@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "sudoku.h"
 
 // Static functions
@@ -179,5 +180,18 @@ void set_editable(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE]){
             }
 
         }
+    }
+}
+
+/*
+    Using the property of integers to only return integers when divided
+    this loop copies a 1 dimensional array into a 2 dimensional array.
+*/
+void import_to_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE], int arrayImport[])
+{
+    int i;
+    for (i = 0; i < SUDOKU_BOARD_SIZE + 1; i++)
+    {
+        arraySudoku[i/SUDOKU_SIZE][i%SUDOKU_SIZE].value = arrayImport[i];
     }
 }

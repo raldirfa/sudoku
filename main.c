@@ -1,14 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 
 #include "sudoku.h"
+#include "file_operations.h"
 
-int new_game();
+int new_game(char path[]);
 
 int main()
 {
     char option;
+    char path[255];
     int exit = 0;
 
     do
@@ -17,6 +20,7 @@ int main()
         printf("[1] -> Choose Sudoku\n"
                "[2] -> Generate Sudoku\n"
                "[3] -> Load Sudoku\n"
+               "[4] -> Import Sudoku form File\n"
                "[x] -> Exit\n\n");
         option = getchar();
         fflush(stdin);
@@ -25,9 +29,14 @@ int main()
         case '1':
         case '2':
         case '3':
-            new_game();
+            new_game("");
             break;
         case '4':
+            printf("File name: ");
+            scanf("%s", path);
+            fflush(stdin);
+            new_game(path);
+            break;
         case 'x':
             exit = 1;
             break;
@@ -38,12 +47,11 @@ int main()
     return 0;
 }
 
-int new_game()
+int new_game(char path[])
 {
     system("cls");
     int won = 0;
-    //  SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE];
-    //  fill_sudoku(arraySudoku);
+    int error = 0;
 
 
     // Level 1 4*4
@@ -77,6 +85,13 @@ int new_game()
                                                             {{3},{1},{7},{4},{8},{6},{9},{2},{5}}};
     */
 
+    if (strlen(path) != 0)
+    {
+        int arrayFile[SUDOKU_BOARD_SIZE + 1];
+        error = read_file(arrayFile, path);
+        import_to_sudoku(arraySudoku, arrayFile);
+    }
+
     set_editable(arraySudoku);
 
     int row = 0;
@@ -91,6 +106,9 @@ int new_game()
 
     do
     {
+        if (error == -1) {
+            return -1;
+        }
         fgets(option, 6 ,stdin);
         //scanf("%s", &option);
         fflush(stdin);
