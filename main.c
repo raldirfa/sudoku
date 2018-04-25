@@ -197,6 +197,7 @@ int new_game(char path[])
         default:
             break;
         }
+        check_and_move_sudoku_cursor(&cursor);
     } while(won != 1);
     printf("Congratulations! You won!\nSeconds: %.f\n", seconds);
     system("pause");

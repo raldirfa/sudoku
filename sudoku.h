@@ -26,5 +26,6 @@ void print_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE], Cursor Curs
 int check_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE]);
 void set_editable(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE]);
 void import_to_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE], int arrayImport[]);
+void check_and_move_sudoku_cursor(Cursor *cursor);
 
 #endif // SUDOKU_H_INCLUDED

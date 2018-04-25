@@ -172,6 +172,26 @@ void set_editable(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE]){
     }
 }
 
+void check_and_move_sudoku_cursor(Cursor *cursor)
+{
+    if (cursor->y < 0)
+    {
+        cursor->y = SUDOKU_SIZE - 1;
+    }
+    if(cursor->y >= SUDOKU_SIZE)
+    {
+        cursor->y = 0;
+    }
+    if(cursor->x < 0)
+    {
+        cursor->x = SUDOKU_SIZE - 1;
+    }
+    if(cursor->x >= SUDOKU_SIZE)
+    {
+        cursor->x = 0;
+    }
+}
+
 /*
     Using the property of integers to only return integers when divided
     this loop copies a 1 dimensional array into a 2 dimensional array.
