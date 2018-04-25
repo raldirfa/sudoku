@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <conio.h>
 
 #include "sudoku.h"
 #include "file_operations.h"
@@ -10,23 +11,46 @@ int new_game(char path[]);
 
 int main()
 {
-    char option;
     char path[255];
     int exit = 0;
+    int back = 0;
 
     do
     {
+        exit = 0;
+        back = 0;
         system("cls");
         printf("[1] -> Choose Sudoku\n"
                "[2] -> Generate Sudoku\n"
                "[3] -> Load Sudoku\n"
                "[4] -> Import Sudoku form File\n"
                "[x] -> Exit\n\n");
-        option = getchar();
-        fflush(stdin);
-        switch(option)
+        switch(getch())
         {
         case '1':
+            do
+            {
+                system("cls");
+                printf("[1] -> Easy\n"
+                       "[2] -> Medium\n"
+                       "[3] -> Hard\n"
+                       "[x] -> Back\n\n");
+                switch(getch())
+                {
+                case '1':
+                case '2':
+                case '3':
+                    new_game("");
+                    back = 1;
+                    break;
+                case 'x':
+                    back = 1;
+                    break;
+                default:
+                    break;
+                }
+            } while (!back);
+            break;
         case '2':
         case '3':
             new_game("");
