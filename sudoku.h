@@ -18,7 +18,6 @@ typedef struct Cursor
 {
     int x;
     int y;
-    int value;
 } Cursor;
 
 void fill_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE]);

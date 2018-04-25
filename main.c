@@ -117,10 +117,8 @@ int new_game(char path[])
 
     set_editable(arraySudoku);
 
-    int row = 0;
-    int column = 0;
     int value = 0;
-    Cursor cursor = {0, 0, value};
+    Cursor cursor = {0, 0};
 
     time_t now;
     time_t start;
@@ -189,8 +187,7 @@ int new_game(char path[])
                 fflush(stdin);
                 if (value <= SUDOKU_SIZE)
                 {
-                    cursor.value = value;
-                    arraySudoku[cursor.y][cursor.x].value = cursor.value;
+                    arraySudoku[cursor.y][cursor.x].value = value;
                 }
             }
             break;
