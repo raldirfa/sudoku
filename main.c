@@ -77,7 +77,6 @@ int new_game(char path[])
     int won = 0;
     int error = 0;
 
-
     // Level 1 4*4
     /*
     SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE] = {   {{1},{2},{3},{4}},
@@ -120,84 +119,86 @@ int new_game(char path[])
 
     int row = 0;
     int column = 0;
-
-    char option[6];
-    print_sudoku(arraySudoku);
+    int value = 0;
+    Cursor cursor = {0, 0, value};
 
     time_t now;
     time_t start;
     time(&start);
+    double seconds;
+
+    if (error)
+    {
+        return -1;
+    }
 
     do
     {
-        if (error == -1) {
-            return -1;
-        }
-        fgets(option, 6 ,stdin);
-        //scanf("%s", &option);
-        fflush(stdin);
+        system("cls");
+        time(&now);
+        seconds = difftime(now, start);
+        printf("%.f seconds have passed since the beginning of the game.\n\n", seconds);
 
-        switch(option[0])
+        print_sudoku(arraySudoku, cursor);
+        switch(getch())
         {
         case 'c':
-            if(check_sudoku(arraySudoku) == 1){
-                won = 1;
-            }else{
-                won = -1;
+            won = check_sudoku(arraySudoku);
+            if (!won)
+            {
+                printf("Your solution is not correct.\n");
+                system("pause");
             }
             break;
         case 'h':
+            printf("No help!!!");
             break;
         case 'x':
-            return 0;
-        default:
-            //TODO: Anpassen check if option[0,2,4] is a number and if option[1,3] is blank
-
-            if(option[0] >= '1' && option[0] <= '9'){
-                column = option[0]-48;
-            } else{
-                print_error("ERROR: Incorrect input!");
-                print_sudoku(arraySudoku);
-                continue;
+            printf("Are you sure you want to quick? y/n");
+            switch(getch())
+            {
+            case 'y':
+                return 0;
+                break;
+            default:
+                break;
             }
-            if(option[2] >= '1' && option[2] <= '9'){
-                row = option[2]-48;
-            } else{
-                print_error("ERROR: Incorrect input!");
-                print_sudoku(arraySudoku);
-                continue;
-            }
-            if(option[4] >= '0' && option[4] <= '9'){
-
-                if(arraySudoku[row-1][column-1].isEditable == 1){
-                    arraySudoku[row-1][column-1].value = option[4]-48;
-                }else{
-                    print_error("You can't edit this field");
-                    print_sudoku(arraySudoku);
-                    continue;
+            break;
+        case 'H':
+        case 'w':
+            cursor.y--;
+            break;
+        case 'K':
+        case 'a':
+            cursor.x--;
+            break;
+        case 'P':
+        case 's':
+            cursor.y++;
+            break;
+        case 'M':
+        case 'd':
+            cursor.x++;
+            break;
+        case 13:
+            if ( arraySudoku[cursor.y][cursor.x].isEditable)
+            {
+                printf("Value to insert: ");
+                fflush(stdin);
+                scanf("%d", &value);
+                fflush(stdin);
+                if (value <= SUDOKU_SIZE)
+                {
+                    cursor.value = value;
+                    arraySudoku[cursor.y][cursor.x].value = cursor.value;
                 }
-
-            } else{
-                print_error("ERROR: Incorrect input!");
-                print_sudoku(arraySudoku);
-                continue;
             }
+            break;
+        default:
+            break;
         }
-        system("cls");
-
-        time(&now);
-        double seconds = difftime(now, start);
-        printf("%.f seconds have passed since the beginning of the game.\n", seconds);
-
-        if(won == -1){
-            printf("Your solution is not correct.\n");
-            won = 0;
-        } else if(won == 1){
-            printf("Congratulations! You won!\n");
-        }
-        print_sudoku(arraySudoku);
-    }
-
-    while(won != 1);
+    } while(won != 1);
+    printf("Congratulations! You won!\nSeconds: %.f\n", seconds);
+    system("pause");
     return 0;
 }

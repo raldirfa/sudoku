@@ -41,7 +41,7 @@ void fill_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE])
     }
 }
 
-void print_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE])
+void print_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE], Cursor cursor)
 {
     int i, j;
     for (i = 0; i < SUDOKU_SIZE; i++)
@@ -56,6 +56,10 @@ void print_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE])
             {
                 printf("|");
             }
+            if (i == cursor.y && j == cursor.x)
+            {
+                printf("\x1b[32m");
+            }
             if(arraySudoku[i][j].value != 0){
                 if (arraySudoku[i][j].value > 9)
                 {
@@ -66,27 +70,19 @@ void print_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE])
                     printf(" %d ", arraySudoku[i][j].value);
                 }
             } else{
-                printf("   ");
+                printf(" . ");
             }
-
+            printf("\x1b[0m");
         }
 
         printf("|\n");
     }
     print_horizontal_seperator();
     printf("\nInput:\n"
-           "[$column $row $value]\n"
+           "Use the Arrowkeys or WASD to move.\n"
            "[h] for help\n"
            "[c] to check your solution\n"
            "[x] to exit the game\n\n");
-}
-
-void print_error(char error[]){
-
-    system("cls");
-
-    printf("%s", error);
-    printf("\n");
 }
 
 int check_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE]){

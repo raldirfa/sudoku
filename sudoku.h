@@ -14,9 +14,15 @@ typedef struct SudokuField
     int isEditable;
 } SudokuField;
 
+typedef struct Cursor
+{
+    int x;
+    int y;
+    int value;
+} Cursor;
+
 void fill_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE]);
-void print_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE]);
-void print_error(char error[]);
+void print_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE], Cursor Cursor);
 int check_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE]);
 void set_editable(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE]);
 void import_to_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE], int arrayImport[]);
