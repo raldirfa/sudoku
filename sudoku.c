@@ -29,6 +29,83 @@ static void print_horizontal_seperator()
     printf("+\n");
 }
 
+static int check_sudoku_rows(SudokuField arraySudoku[][SUDOKU_SIZE])
+{
+    int i, j, x;
+    int checkArray[SUDOKU_SIZE];
+
+    for(i = 0; i < SUDOKU_SIZE; i++){
+        fill_checkArray(checkArray);
+        for(j = 0; j < SUDOKU_SIZE; j++){
+            x = arraySudoku[i][j].value;
+            if(x == 0){
+                return 1;
+            }
+            if( checkArray[x-1] == 0){
+                checkArray[x-1] = 1;
+            } else {
+                return 1;
+            }
+
+        }
+    }
+    return 0;
+}
+
+static int check_sudoku_cols(SudokuField arraySudoku[][SUDOKU_SIZE])
+{
+    int i, j, x;
+    int checkArray[SUDOKU_SIZE];
+
+    for(i = 0; i < SUDOKU_SIZE; i++){
+        fill_checkArray(checkArray);
+        for(j = 0; j < SUDOKU_SIZE; j++){
+            x = arraySudoku[j][i].value;
+            if(x == 0){
+                return 1;
+            }
+            if( checkArray[x-1] == 0){
+                checkArray[x-1] = 1;
+            } else {
+                return 1;
+            }
+
+        }
+    }
+    return 0;
+}
+
+static int check_sudoku_boxes(SudokuField arraySudoku[][SUDOKU_SIZE])
+{
+    int i, j, k, l, x;
+    int checkArray[SUDOKU_SIZE];
+
+    //i and j point to the first field in every 3x3 box
+    //k and l iterate through every field in the box
+    for(i = 0; i < SUDOKU_SIZE; i = i + SUDOKU_SEPERATOR){
+        for(j = 0; j < SUDOKU_SIZE; j = j + SUDOKU_SEPERATOR){
+            fill_checkArray(checkArray);
+            for(k = 0; k < SUDOKU_SEPERATOR; k++){
+                for(l = 0; l < SUDOKU_SEPERATOR; l++){
+                    x = arraySudoku[i+k][j+l].value;
+                    if(x == 0){
+                        return 1;
+                    }
+                    if( checkArray[x-1] == 0){
+                        checkArray[x-1] = 1;
+                    } else {
+                        return 1;
+                    }
+
+                }
+            }
+        }
+    }
+    return 0;
+}
+
+// Functions
+
 void fill_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE])
 {
     int i, j;
@@ -85,74 +162,19 @@ void print_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE], Cursor curs
            "[x] to exit the game\n\n");
 }
 
-int check_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE]){
+int check_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE])
+{
+    int isMissingRow, isMissingCols, isMissingBoxes;
 
-    int i, j, k, l, x;
-    int checkArray[SUDOKU_SIZE];
-    fill_checkArray(checkArray);
+    isMissingRow = check_sudoku_rows(arraySudoku);
+    isMissingCols = check_sudoku_cols(arraySudoku);
+    isMissingBoxes = check_sudoku_boxes(arraySudoku);
 
-    //checkRows:
+    if (isMissingRow || isMissingCols || isMissingBoxes)
     {
-        for(i = 0; i < SUDOKU_SIZE; i++){
-            fill_checkArray(checkArray);
-            for(j = 0; j < SUDOKU_SIZE; j++){
-                x = arraySudoku[i][j].value;
-                if(x == 0){
-                    return 0;
-                }
-                if( checkArray[x-1] == 0){
-                    checkArray[x-1] = 1;
-                } else {
-                    return 0;
-                }
-
-            }
-        }
+        return 0;
     }
 
-    //checkCols:
-    {
-        for(i = 0; i < SUDOKU_SIZE; i++){
-            fill_checkArray(checkArray);
-            for(j = 0; j < SUDOKU_SIZE; j++){
-                x = arraySudoku[j][i].value;
-                if(x == 0){
-                    return 0;
-                }
-                if( checkArray[x-1] == 0){
-                    checkArray[x-1] = 1;
-                } else {
-                    return 0;
-                }
-
-            }
-        }
-    }
-
-    //checkBoxes:
-    {
-        //i and j point to the first field in every 3x3 box
-        //k and l iterate through every field in the box
-        for(i = 0; i < SUDOKU_SIZE; i = i + SUDOKU_SEPERATOR){
-            for(j = 0; j < SUDOKU_SIZE; j = j + SUDOKU_SEPERATOR){
-                fill_checkArray(checkArray);
-                for(k = 0; k < SUDOKU_SEPERATOR; k++){
-                    for(l = 0; l < SUDOKU_SEPERATOR; l++){
-                        x = arraySudoku[i+k][j+l].value;
-                        if(x == 0){
-                            return 0;
-                        }
-                        if( checkArray[x-1] == 0){
-                            checkArray[x-1] = 1;
-                        } else {
-                            return 0;
-                        }
-
-                    }
-                }
-            }
-        }
-    }
     return 1;
 }
 
@@ -174,18 +196,25 @@ void set_editable(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE]){
 
 void check_and_move_sudoku_cursor(Cursor *cursor)
 {
+    // Up
     if (cursor->y < 0)
     {
         cursor->y = SUDOKU_SIZE - 1;
     }
+
+    // Down
     if(cursor->y >= SUDOKU_SIZE)
     {
         cursor->y = 0;
     }
+
+    // Left
     if(cursor->x < 0)
     {
         cursor->x = SUDOKU_SIZE - 1;
     }
+
+    // Right
     if(cursor->x >= SUDOKU_SIZE)
     {
         cursor->x = 0;

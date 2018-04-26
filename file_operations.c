@@ -23,5 +23,6 @@ int read_file_and_fill_array(int arrayToFill[], char path[])
         fclose(file);
         return 0;
     }
-    return -1;
+    fclose(file);
+    return 1;
 }
