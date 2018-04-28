@@ -58,7 +58,8 @@ int main()
             break;
         case '4':
             printf("File name: ");
-            scanf("%s", path);
+            gets(path);
+            //scanf("%s", path);
             fflush(stdin);
             init_game(path);
             break;
@@ -105,7 +106,7 @@ int new_game(SudokuField arraySudoku[][SUDOKU_SIZE])
             printf("No help!!!");
             break;
         case 'x':
-            printf("Are you sure you want to quick? y/n");
+            printf("Are you sure you want to quit? y/n");
             switch(getch())
             {
             case 'y':
