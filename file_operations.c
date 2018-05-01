@@ -5,11 +5,15 @@
 #include "file_operations.h"
 
 // From https://stackoverflow.com/a/3463793
-int read_file_and_fill_array(int arrayToFill[], char path[])
+int read_file_and_fill_array(int arrayToFill[], char filepath[])
 {
     FILE *file;
     int c;
     int i = 0;
+    char path[100];
+
+    strcpy(path, SUBFOLDER);
+    strcat(path, filepath);
 
     file = fopen(path, "r");
     if (file) {

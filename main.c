@@ -12,7 +12,7 @@ int init_game(char path[]);
 
 int main()
 {
-    char path[255];
+    char path[100];
     int exit = 0;
     int back = 0;
 
@@ -57,9 +57,10 @@ int main()
             init_game("");
             break;
         case '4':
-            printf("File name: ");
+            printf("Files:\n");
+            system("dir " SUBFOLDER " /b");
+            printf("\nFile name: ");
             gets(path);
-            //scanf("%s", path);
             fflush(stdin);
             init_game(path);
             break;
