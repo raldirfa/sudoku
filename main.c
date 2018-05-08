@@ -13,6 +13,7 @@ int init_game(char path[]);
 int main()
 {
     char path[100];
+    char temp[100];
     int exit = 0;
     int back = 0;
 
@@ -54,7 +55,15 @@ int main()
             break;
         case '2':
         case '3':
-            init_game("");
+
+            printf("Files:\n");
+            system("dir " SAVEFOLDER " /b");
+            printf("\nFile name: ");
+            gets(temp);
+            strcpy(path, SAVEFOLDER);
+            strcat(path, temp);
+            fflush(stdin);
+            init_game(path);
             break;
         case '4':
             printf("Files:\n");
@@ -105,6 +114,18 @@ int new_game(SudokuField arraySudoku[][SUDOKU_SIZE])
             break;
         case 'h':
             printf("No help!!!");
+            break;
+        case 'S':
+            printf("Weet je zeker dat je wilt opslaan? (Save) y/n");
+            switch(getch())
+            {
+            case 'y':
+                save_sudoku(arraySudoku);
+                return 0;
+                break;
+            default:
+                break;
+            }
             break;
         case 'x':
             printf("Are you sure you want to quit? y/n");
@@ -158,6 +179,7 @@ int new_game(SudokuField arraySudoku[][SUDOKU_SIZE])
 
 int init_game(char path[])
 {
+    int loaded = 0;
     // Level 1 4*4
     /*
     SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE] = {   {{1},{2},{3},{4}},
@@ -178,15 +200,31 @@ int init_game(char path[])
 
     if (strlen(path) != 0)
     {
-        int arrayFile[SUDOKU_BOARD_SIZE + 1];
-        if(read_file_and_fill_array(arrayFile, path))
+        printf(path);
+
+        if (strstr(path, SAVEFOLDER) != NULL)
         {
-            return 1;
+
+            load_sudoku(path, arraySudoku);
+            loaded = 1;
+        } else
+        {
+            int arrayFile[SUDOKU_BOARD_SIZE + 1];
+            if(read_file_and_fill_array(arrayFile, path))
+            {
+                return 1;
+            }
+            import_to_sudoku(arraySudoku, arrayFile);
         }
-        import_to_sudoku(arraySudoku, arrayFile);
+
+
+
     }
 
-    set_editable(arraySudoku);
+    if(!loaded){
+
+        set_editable(arraySudoku);
+    }
     new_game(arraySudoku);
     return 0;
 }
