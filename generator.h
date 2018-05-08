@@ -3,6 +3,6 @@
 
 #include "sudoku.h"
 
-
+void generateSudoku(SudokuField arraySudoku[][SUDOKU_SIZE]);
 
 #endif // GENERATOR_H_INCLUDED

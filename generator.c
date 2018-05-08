@@ -147,7 +147,7 @@ int solve(SudokuField grid[SUDOKU_SIZE][SUDOKU_SIZE])
     return 0;
 }
 
-void generate(SudokuField arraySudoku[][SUDOKU_SIZE])
+void generateSudoku(SudokuField arraySudoku[][SUDOKU_SIZE])
 {
     int exit = 0;
 

@@ -208,7 +208,7 @@ int init_game(char path[])
     SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE];
 
     fill_sudoku(arraySudoku);
-    generate(arraySudoku);
+    generateSudoku(arraySudoku);
 
     if (strlen(path) != 0)
     {
