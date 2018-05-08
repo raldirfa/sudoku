@@ -179,7 +179,6 @@ int init_game(char path[])
     if (strlen(path) != 0)
     {
         int arrayFile[SUDOKU_BOARD_SIZE + 1];
-        // Workaround: Variable get random values
         if(read_file_and_fill_array(arrayFile, path))
         {
             return 1;
