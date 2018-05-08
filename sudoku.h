@@ -8,6 +8,8 @@
 #define SUDOKU_SEPERATOR ((int)sqrt(SUDOKU_SIZE))
 #define SUDOKU_BOARD_SIZE (SUDOKU_SIZE * SUDOKU_SIZE)
 
+#define HCONSOLE GetStdHandle(STD_OUTPUT_HANDLE)
+
 typedef struct SudokuField
 {
     int value;

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <windows.h>
 
 #include "sudoku.h"
 
@@ -135,7 +136,7 @@ void print_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE], Cursor curs
             }
             if (i == cursor.y && j == cursor.x)
             {
-                printf("\x1b[32m");
+                SetConsoleTextAttribute(HCONSOLE, 2);
             }
             if(arraySudoku[i][j].value != 0){
                 if (arraySudoku[i][j].value > 9)
@@ -149,7 +150,7 @@ void print_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE], Cursor curs
             } else{
                 printf(" . ");
             }
-            printf("\x1b[0m");
+            SetConsoleTextAttribute(HCONSOLE, 7);
         }
 
         printf("|\n");
