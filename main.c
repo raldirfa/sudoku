@@ -118,7 +118,7 @@ int new_game(SudokuField arraySudoku[][SUDOKU_SIZE])
             printf("No help!!!");
             break;
         case 'S':
-            printf("Weet je zeker dat je wilt opslaan? (Save) y/n\n");
+            printf("Are you sure you want to save? y/n\n");
             switch(getch())
             {
             case 'y':
