@@ -11,7 +11,7 @@ int is_valid(SudokuField sudoku[SUDOKU_SIZE][SUDOKU_SIZE], int row, int col, int
     int isOk = 1;
     int cCol=0,cRow=0;
 
-    for (cCol = 0; cCol < 9; cCol++)
+    for (cCol = 0; cCol < SUDOKU_SIZE; cCol++)
     {
         if (sudoku[row][cCol].value == number)
         {
@@ -19,7 +19,7 @@ int is_valid(SudokuField sudoku[SUDOKU_SIZE][SUDOKU_SIZE], int row, int col, int
         }
     }
 
-    for (cRow = 0; cRow < 9; cRow++)
+    for (cRow = 0; cRow < SUDOKU_SIZE; cRow++)
     {
         if (sudoku[cRow][col].value == number)
         {
@@ -31,11 +31,11 @@ int is_valid(SudokuField sudoku[SUDOKU_SIZE][SUDOKU_SIZE], int row, int col, int
     int aCol = col;
     row=0;
     col=0;
-    for ( row = 0; row < 3; row++)
+    for ( row = 0; row < SUDOKU_SEPERATOR; row++)
     {
-        for ( col = 0; col < 3; col++)
+        for ( col = 0; col < SUDOKU_SEPERATOR; col++)
         {
-            if (sudoku[row + (aRow-(aRow%3))][col + (aCol-(aCol%3))].value == number)
+            if (sudoku[row + (aRow-(aRow%SUDOKU_SEPERATOR))][col + (aCol-(aCol%SUDOKU_SEPERATOR))].value == number)
             {
                 isOk = 0;
             }
@@ -53,8 +53,8 @@ void createEmptyFields(SudokuField randomPuzzle[SUDOKU_SIZE][SUDOKU_SIZE])
     while(counter < 40)
     {
         counter++;
-        randomRow = (rand() % 9);
-        randomCol = (rand() % 9);
+        randomRow = (rand() % SUDOKU_SIZE);
+        randomCol = (rand() % SUDOKU_SIZE);
         if(randomPuzzle[randomRow][randomCol].value !=0)
         {
            randomPuzzle[randomRow][randomCol].value =0;
@@ -79,9 +79,9 @@ int createRandomPuzzle(SudokuField randomPuzzle[SUDOKU_SIZE][SUDOKU_SIZE])
     while(counter < 15)
     {
         counter++;
-        randomRow = (rand() % 9);
-        randomCol = (rand() % 9);
-        randomNum = (rand() % 9)+1;
+        randomRow = (rand() % SUDOKU_SIZE);
+        randomCol = (rand() % SUDOKU_SIZE);
+        randomNum = (rand() % SUDOKU_SIZE)+1;
 
         if(randomPuzzle[randomRow][randomCol].value == 0 && randomPuzzle[randomRow][randomCol].value != randomNum && is_valid(randomPuzzle,randomRow,randomCol,randomNum) == 1)
         {
