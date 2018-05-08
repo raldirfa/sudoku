@@ -35,6 +35,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="file_operations.h" />
+		<Unit filename="generator.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="generator.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
