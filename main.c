@@ -54,8 +54,8 @@ int main()
             } while (!back);
             break;
         case '2':
+            break;
         case '3':
-
             printf("Files:\n");
             system("dir " SAVEFOLDER " /b");
             printf("\nFile name: ");
@@ -89,6 +89,8 @@ int new_game(SudokuField arraySudoku[][SUDOKU_SIZE])
     int value = 0;
     Cursor cursor = {0, 0};
 
+    char filename[100];
+
     time_t now;
     time_t start;
     time(&start);
@@ -116,11 +118,14 @@ int new_game(SudokuField arraySudoku[][SUDOKU_SIZE])
             printf("No help!!!");
             break;
         case 'S':
-            printf("Weet je zeker dat je wilt opslaan? (Save) y/n");
+            printf("Weet je zeker dat je wilt opslaan? (Save) y/n\n");
             switch(getch())
             {
             case 'y':
-                save_sudoku(arraySudoku);
+                printf("Filename: ");
+                gets(filename);
+                fflush(stdin);
+                save_sudoku(arraySudoku, filename);
                 return 0;
                 break;
             default:
@@ -204,7 +209,6 @@ int init_game(char path[])
 
         if (strstr(path, SAVEFOLDER) != NULL)
         {
-
             load_sudoku(path, arraySudoku);
             loaded = 1;
         } else
@@ -217,12 +221,9 @@ int init_game(char path[])
             import_to_sudoku(arraySudoku, arrayFile);
         }
 
-
-
     }
 
     if(!loaded){
-
         set_editable(arraySudoku);
     }
     new_game(arraySudoku);

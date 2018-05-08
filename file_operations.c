@@ -16,8 +16,10 @@ int read_file_and_fill_array(int arrayToFill[], char filepath[])
     strcat(path, filepath);
 
     file = fopen(path, "r");
-    if (file) {
-        while ((c = getc(file)) != EOF){
+    if (file)
+    {
+        while ((c = getc(file)) != EOF)
+        {
             if (c != '\n')
             {
                 arrayToFill[i] = c - 48;
@@ -31,14 +33,16 @@ int read_file_and_fill_array(int arrayToFill[], char filepath[])
     return 1;
 }
 
-int save_sudoku(SudokuField arrayToSave[SUDOKU_SIZE][SUDOKU_SIZE]) {
+int save_sudoku(SudokuField arrayToSave[SUDOKU_SIZE][SUDOKU_SIZE], char filename[])
+{
 
     FILE *outfile;
     int i,j;
     char path[100];
 
     strcpy(path, SAVEFOLDER);
-    strcat(path, "save.chan");
+    strcat(path, filename);
+    strcat(path, ".chan");
 
     outfile = fopen (path, "w");
     if (outfile == NULL)
@@ -74,13 +78,12 @@ int load_sudoku(char filepath[],SudokuField sudoku[SUDOKU_SIZE][SUDOKU_SIZE])
         return 1;
     }
 
-    while(fread(&input, sizeof(SudokuField), 1, infile)){
+    while(fread(&input, sizeof(SudokuField), 1, infile))
+    {
 
-        printf ("value = %i Editable = %i \n", input.value, input.isEditable);
         sudoku[i/9][i%9] = input;
         i++;
     }
-    system("pause");
 
     return 0;
 }

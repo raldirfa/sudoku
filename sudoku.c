@@ -160,6 +160,7 @@ void print_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE], Cursor curs
            "Use the Arrowkeys or WASD to move.\n"
            "[h] for help\n"
            "[c] to check your solution\n"
+           "[S] to save your game\n"
            "[x] to exit the game\n\n");
 }
 

@@ -65,3 +65,6 @@ obj/
 
 
 # End of https://www.gitignore.io/api/codeblocks
+
+# saves
+saves/
