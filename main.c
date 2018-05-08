@@ -5,6 +5,7 @@
 #include <conio.h>
 
 #include "sudoku.h"
+#include "generator.h"
 #include "file_operations.h"
 
 int new_game(SudokuField arraySudoku[][SUDOKU_SIZE]);
@@ -191,7 +192,7 @@ int init_game(char path[])
                                                             {{3},{0},{2},{1}},
                                                             {{2},{1},{4},{3}},
                                                             {{4},{3},{1},{2}}};
-    */
+
     // Level 1 9*9
     SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE] = {   {{7},{9},{0},{0},{5},{8},{2},{0},{0}},
                                                             {{0},{0},{4},{6},{0},{7},{0},{5},{8}},
@@ -202,6 +203,12 @@ int init_game(char path[])
                                                             {{9},{0},{0},{7},{0},{1},{0},{0},{4}},
                                                             {{0},{6},{8},{0},{0},{5},{7},{0},{0}},
                                                             {{3},{0},{7},{4},{8},{0},{0},{2},{5}}};
+    */
+
+    SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE];
+
+    fill_sudoku(arraySudoku);
+    generate(arraySudoku);
 
     if (strlen(path) != 0)
     {
