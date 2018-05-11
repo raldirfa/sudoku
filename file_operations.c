@@ -10,12 +10,8 @@ int read_file_and_fill_array(int arrayToFill[], char filepath[])
     FILE *file;
     int c;
     int i = 0;
-    char path[100];
 
-    strcpy(path, SUBFOLDER);
-    strcat(path, filepath);
-
-    file = fopen(path, "r");
+    file = fopen(filepath, "r");
     if (file)
     {
         while ((c = getc(file)) != EOF)
@@ -35,7 +31,6 @@ int read_file_and_fill_array(int arrayToFill[], char filepath[])
 
 int save_sudoku(SudokuField arrayToSave[SUDOKU_SIZE][SUDOKU_SIZE], char filename[])
 {
-
     FILE *outfile;
     int i,j;
     char path[100];
@@ -59,29 +54,26 @@ int save_sudoku(SudokuField arrayToSave[SUDOKU_SIZE][SUDOKU_SIZE], char filename
         }
     }
 
-
     fclose(outfile);
     return 0;
 }
 
-int load_sudoku(char filepath[],SudokuField sudoku[SUDOKU_SIZE][SUDOKU_SIZE])
+int load_sudoku(char filepath[], SudokuField sudoku[SUDOKU_SIZE][SUDOKU_SIZE])
 {
-    FILE *infile;
+    FILE *file;
     int i = 0;
     SudokuField input;
 
-    infile = fopen (filepath, "r");
+    file = fopen (filepath, "r");
 
-    if (infile == NULL)
+    if (file == NULL)
     {
-        fprintf(stderr, "\nError opening file\n");
         return 1;
     }
 
-    while(fread(&input, sizeof(SudokuField), 1, infile))
+    while(fread(&input, sizeof(SudokuField), 1, file))
     {
-
-        sudoku[i/9][i%9] = input;
+        sudoku[i/SUDOKU_SIZE][i%SUDOKU_SIZE] = input;
         i++;
     }
 

@@ -9,12 +9,13 @@
 #include "file_operations.h"
 
 int new_game(SudokuField arraySudoku[][SUDOKU_SIZE]);
-int init_game(char path[]);
+int get_path(char path[], char folder[]);
+int init_game();
+int init_game_path(char path[]);
 
 int main()
 {
     char path[100];
-    char temp[100];
     int exit = 0;
     int back = 0;
 
@@ -43,7 +44,7 @@ int main()
                 case '1':
                 case '2':
                 case '3':
-                    init_game("");
+                    init_game();
                     back = 1;
                     break;
                 case 'x':
@@ -52,27 +53,19 @@ int main()
                 default:
                     break;
                 }
-            } while (!back);
+            }
+            while (!back);
             break;
         case '2':
+            init_game();
             break;
         case '3':
-            printf("Files:\n");
-            system("dir " SAVEFOLDER " /b");
-            printf("\nFile name: ");
-            gets(temp);
-            strcpy(path, SAVEFOLDER);
-            strcat(path, temp);
-            fflush(stdin);
-            init_game(path);
+            get_path(path, SAVEFOLDER);
+            init_game_path(path);
             break;
         case '4':
-            printf("Files:\n");
-            system("dir " SUBFOLDER " /b");
-            printf("\nFile name: ");
-            gets(path);
-            fflush(stdin);
-            init_game(path);
+            get_path(path, SUBFOLDER);
+            init_game_path(path);
             break;
         case 'x':
             exit = 1;
@@ -80,7 +73,8 @@ int main()
         default:
             break;
         }
-    } while (!exit);
+    }
+    while (!exit);
     return 0;
 }
 
@@ -177,43 +171,59 @@ int new_game(SudokuField arraySudoku[][SUDOKU_SIZE])
             break;
         }
         check_and_move_sudoku_cursor(&cursor);
-    } while(won != 1);
+    }
+    while(won != 1);
     printf("Congratulations! You won!\nSeconds: %.f\n", seconds);
     system("pause");
     return 0;
 }
 
+int get_path(char path[], char folder[])
+{
+    char temp[100];
+    char systemDirectory[100];
+
+    strcpy(systemDirectory, "dir ");
+    strcat(systemDirectory, folder);
+    strcat(systemDirectory, " /b");
+
+    printf("Files:\n");
+    system(systemDirectory);
+    printf("\nFile name: ");
+    gets(temp);
+    strcpy(path, folder);
+    strcat(path, temp);
+    fflush(stdin);
+
+    return 0;
+}
+
 int init_game(char path[])
 {
-    int loaded = 0;
-
-    /*
-    // Level 1 9*9
-    SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE] = {   {{7},{9},{0},{0},{5},{8},{2},{0},{0}},
-                                                            {{0},{0},{4},{6},{0},{7},{0},{5},{8}},
-                                                            {{5},{0},{3},{0},{0},{2},{6},{7},{0}},
-                                                            {{0},{4},{0},{2},{7},{0},{5},{0},{6}},
-                                                            {{0},{3},{9},{5},{0},{0},{1},{8},{0}},
-                                                            {{6},{7},{0},{0},{1},{9},{0},{0},{2}},
-                                                            {{9},{0},{0},{7},{0},{1},{0},{0},{4}},
-                                                            {{0},{6},{8},{0},{0},{5},{7},{0},{0}},
-                                                            {{3},{0},{7},{4},{8},{0},{0},{2},{5}}};
-    */
-
     SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE];
-
     fill_sudoku(arraySudoku);
     generateSudoku(arraySudoku);
+    set_editable(arraySudoku);
+    new_game(arraySudoku);
+    return 0;
+}
+
+int init_game_path(char path[])
+{
+    SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE];
+    int loaded = 0;
 
     if (strlen(path) != 0)
     {
-        printf(path);
-
         if (strstr(path, SAVEFOLDER) != NULL)
         {
-            load_sudoku(path, arraySudoku);
+            if(load_sudoku(path, arraySudoku))
+            {
+                return 1;
+            }
             loaded = 1;
-        } else
+        }
+        else
         {
             int arrayFile[SUDOKU_BOARD_SIZE + 1];
             if(read_file_and_fill_array(arrayFile, path))
@@ -222,12 +232,13 @@ int init_game(char path[])
             }
             import_to_sudoku(arraySudoku, arrayFile);
         }
-
     }
 
-    if(!loaded){
+    if(!loaded)
+    {
         set_editable(arraySudoku);
     }
+
     new_game(arraySudoku);
     return 0;
 }
