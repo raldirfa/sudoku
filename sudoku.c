@@ -136,7 +136,7 @@ void print_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE], Cursor curs
             }
             if (i == cursor.y && j == cursor.x)
             {
-                SetConsoleTextAttribute(HCONSOLE, 2);
+                SetConsoleTextAttribute(HCONSOLE, 42);
             }
             if(arraySudoku[i][j].value != 0){
                 if (arraySudoku[i][j].value > 9)
