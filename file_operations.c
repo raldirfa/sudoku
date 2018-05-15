@@ -80,6 +80,25 @@ int load_sudoku(char filepath[], SudokuField sudoku[SUDOKU_SIZE][SUDOKU_SIZE])
     return 0;
 }
 
+int get_path(char path[], char folder[])
+{
+    char temp[100];
+    char systemDirectory[100];
+
+    strcpy(systemDirectory, "dir ");
+    strcat(systemDirectory, folder);
+    strcat(systemDirectory, " /b");
+
+    printf("Files:\n");
+    system(systemDirectory);
+    printf("\nFile name: ");
+    gets(temp);
+    strcpy(path, folder);
+    strcat(path, temp);
+    fflush(stdin);
+
+    return 0;
+}
 
 
 
