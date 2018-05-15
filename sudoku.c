@@ -4,8 +4,28 @@
 #include <windows.h>
 
 #include "sudoku.h"
+#include "generator.h"
 
 // Static functions
+
+void generateSudoku(SudokuField arraySudoku[][SUDOKU_SIZE])
+{
+    int exit = 0;
+
+    do
+    {
+        createRandomPuzzle(arraySudoku);
+
+        if (solve(arraySudoku))
+        {
+            exit = 1;
+        }
+        else {
+            fill_sudoku(arraySudoku);
+        }
+    } while (!exit);
+    createEmptyFields(arraySudoku);
+}
 
 static void fill_checkArray(int array[SUDOKU_SIZE])
 {

@@ -146,22 +146,3 @@ int solve(SudokuField grid[SUDOKU_SIZE][SUDOKU_SIZE])
 
     return 0;
 }
-
-void generateSudoku(SudokuField arraySudoku[][SUDOKU_SIZE])
-{
-    int exit = 0;
-
-    do
-    {
-        createRandomPuzzle(arraySudoku);
-
-        if (solve(arraySudoku))
-        {
-            exit = 1;
-        }
-        else {
-            fill_sudoku(arraySudoku);
-        }
-    } while (!exit);
-    createEmptyFields(arraySudoku);
-}

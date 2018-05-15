@@ -22,6 +22,7 @@ typedef struct Cursor
     int y;
 } Cursor;
 
+void generateSudoku(SudokuField arraySudoku[][SUDOKU_SIZE]);
 void fill_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE]);
 void print_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE], Cursor Cursor);
 int check_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE]);

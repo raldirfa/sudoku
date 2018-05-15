@@ -5,7 +5,6 @@
 #include <conio.h>
 
 #include "sudoku.h"
-#include "generator.h"
 #include "file_operations.h"
 
 int new_game(SudokuField arraySudoku[][SUDOKU_SIZE]);
