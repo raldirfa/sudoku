@@ -7,26 +7,6 @@
 #include "generator.h"
 
 // Static functions
-
-void generateSudoku(SudokuField arraySudoku[][SUDOKU_SIZE])
-{
-    int exit = 0;
-
-    do
-    {
-        createRandomPuzzle(arraySudoku);
-
-        if (solve(arraySudoku))
-        {
-            exit = 1;
-        }
-        else {
-            fill_sudoku(arraySudoku);
-        }
-    } while (!exit);
-    createEmptyFields(arraySudoku);
-}
-
 static void fill_checkArray(int array[SUDOKU_SIZE])
 {
     int i;
@@ -55,16 +35,22 @@ static int check_sudoku_rows(SudokuField arraySudoku[][SUDOKU_SIZE])
     int i, j, x;
     int checkArray[SUDOKU_SIZE];
 
-    for(i = 0; i < SUDOKU_SIZE; i++){
+    for(i = 0; i < SUDOKU_SIZE; i++)
+    {
         fill_checkArray(checkArray);
-        for(j = 0; j < SUDOKU_SIZE; j++){
+        for(j = 0; j < SUDOKU_SIZE; j++)
+        {
             x = arraySudoku[i][j].value;
-            if(x == 0){
+            if(x == 0)
+            {
                 return 1;
             }
-            if( checkArray[x-1] == 0){
+            if( checkArray[x-1] == 0)
+            {
                 checkArray[x-1] = 1;
-            } else {
+            }
+            else
+            {
                 return 1;
             }
 
@@ -78,16 +64,22 @@ static int check_sudoku_cols(SudokuField arraySudoku[][SUDOKU_SIZE])
     int i, j, x;
     int checkArray[SUDOKU_SIZE];
 
-    for(i = 0; i < SUDOKU_SIZE; i++){
+    for(i = 0; i < SUDOKU_SIZE; i++)
+    {
         fill_checkArray(checkArray);
-        for(j = 0; j < SUDOKU_SIZE; j++){
+        for(j = 0; j < SUDOKU_SIZE; j++)
+        {
             x = arraySudoku[j][i].value;
-            if(x == 0){
+            if(x == 0)
+            {
                 return 1;
             }
-            if( checkArray[x-1] == 0){
+            if( checkArray[x-1] == 0)
+            {
                 checkArray[x-1] = 1;
-            } else {
+            }
+            else
+            {
                 return 1;
             }
 
@@ -103,18 +95,26 @@ static int check_sudoku_boxes(SudokuField arraySudoku[][SUDOKU_SIZE])
 
     //i and j point to the first field in every 3x3 box
     //k and l iterate through every field in the box
-    for(i = 0; i < SUDOKU_SIZE; i = i + SUDOKU_SEPERATOR){
-        for(j = 0; j < SUDOKU_SIZE; j = j + SUDOKU_SEPERATOR){
+    for(i = 0; i < SUDOKU_SIZE; i = i + SUDOKU_SEPERATOR)
+    {
+        for(j = 0; j < SUDOKU_SIZE; j = j + SUDOKU_SEPERATOR)
+        {
             fill_checkArray(checkArray);
-            for(k = 0; k < SUDOKU_SEPERATOR; k++){
-                for(l = 0; l < SUDOKU_SEPERATOR; l++){
+            for(k = 0; k < SUDOKU_SEPERATOR; k++)
+            {
+                for(l = 0; l < SUDOKU_SEPERATOR; l++)
+                {
                     x = arraySudoku[i+k][j+l].value;
-                    if(x == 0){
+                    if(x == 0)
+                    {
                         return 1;
                     }
-                    if( checkArray[x-1] == 0){
+                    if( checkArray[x-1] == 0)
+                    {
                         checkArray[x-1] = 1;
-                    } else {
+                    }
+                    else
+                    {
                         return 1;
                     }
 
@@ -126,6 +126,27 @@ static int check_sudoku_boxes(SudokuField arraySudoku[][SUDOKU_SIZE])
 }
 
 // Functions
+
+void generateSudoku(SudokuField arraySudoku[][SUDOKU_SIZE])
+{
+    int exit = 0;
+
+    do
+    {
+        createRandomPuzzle(arraySudoku);
+
+        if (solve(arraySudoku))
+        {
+            exit = 1;
+        }
+        else
+        {
+            fill_sudoku(arraySudoku);
+        }
+    }
+    while (!exit);
+    createEmptyFields(arraySudoku);
+}
 
 void fill_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE])
 {
@@ -139,7 +160,7 @@ void fill_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE])
     }
 }
 
-void print_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE], Cursor cursor)
+void print_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE], Cursor cursor, char message[])
 {
     int i, j;
     for (i = 0; i < SUDOKU_SIZE; i++)
@@ -158,7 +179,8 @@ void print_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE], Cursor curs
             {
                 SetConsoleTextAttribute(HCONSOLE, 42);
             }
-            if(arraySudoku[i][j].value != 0){
+            if(arraySudoku[i][j].value != 0)
+            {
                 if (arraySudoku[i][j].value > 9)
                 {
                     printf("%d ", arraySudoku[i][j].value);
@@ -167,7 +189,9 @@ void print_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE], Cursor curs
                 {
                     printf(" %d ", arraySudoku[i][j].value);
                 }
-            } else{
+            }
+            else
+            {
                 printf(" . ");
             }
             SetConsoleTextAttribute(HCONSOLE, 7);
@@ -176,9 +200,9 @@ void print_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE], Cursor curs
         printf("|\n");
     }
     print_horizontal_seperator();
+    printf("\n%s\n", message);
     printf("\nInput:\n"
            "Use the Arrowkeys or WASD to move.\n"
-           "[h] for help\n"
            "[c] to check your solution\n"
            "[S] to save your game\n"
            "[x] to exit the game\n\n");
@@ -200,15 +224,19 @@ int check_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE])
     return 1;
 }
 
-void set_editable(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE]){
+void set_editable(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE])
+{
     int i, j;
     for (i = 0; i < SUDOKU_SIZE; i++)
     {
         for (j = 0; j < SUDOKU_SIZE; j++)
         {
-            if(arraySudoku[i][j].value == 0){
+            if(arraySudoku[i][j].value == 0)
+            {
                 arraySudoku[i][j].isEditable = 1;
-            } else{
+            }
+            else
+            {
                 arraySudoku[i][j].isEditable = 0;
             }
 

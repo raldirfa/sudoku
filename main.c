@@ -84,6 +84,7 @@ int new_game(SudokuField arraySudoku[][SUDOKU_SIZE])
     Cursor cursor = {0, 0};
 
     char filename[100];
+    char message[100] = "";
 
     time_t now;
     time_t start;
@@ -97,7 +98,9 @@ int new_game(SudokuField arraySudoku[][SUDOKU_SIZE])
         seconds = difftime(now, start);
         printf("%.f seconds have passed since the beginning of the game.\n\n", seconds);
 
-        print_sudoku(arraySudoku, cursor);
+        print_sudoku(arraySudoku, cursor, message);
+
+        strcpy(message, "");
         switch(getch())
         {
         case 'c':
@@ -107,9 +110,6 @@ int new_game(SudokuField arraySudoku[][SUDOKU_SIZE])
                 printf("Your solution is not correct.\n");
                 system("pause");
             }
-            break;
-        case 'h':
-            printf("No help!!!");
             break;
         case 'S':
             printf("Are you sure you want to save? y/n\n");
@@ -164,6 +164,10 @@ int new_game(SudokuField arraySudoku[][SUDOKU_SIZE])
                 {
                     arraySudoku[cursor.y][cursor.x].value = value;
                 }
+            }
+            else
+            {
+                strcat(message, "Field is not editable!");
             }
             break;
         default:

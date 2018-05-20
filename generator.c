@@ -57,7 +57,7 @@ void createEmptyFields(SudokuField randomPuzzle[SUDOKU_SIZE][SUDOKU_SIZE])
         randomCol = (rand() % SUDOKU_SIZE);
         if(randomPuzzle[randomRow][randomCol].value !=0)
         {
-           randomPuzzle[randomRow][randomCol].value =0;
+            randomPuzzle[randomRow][randomCol].value =0;
         }
         else
         {
@@ -118,7 +118,6 @@ int find_unassigned(SudokuField grid[SUDOKU_SIZE][SUDOKU_SIZE], int *row, int *c
 
 int solve(SudokuField grid[SUDOKU_SIZE][SUDOKU_SIZE])
 {
-
     int row = 0;
     int col = 0;
 
