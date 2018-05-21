@@ -9,7 +9,7 @@
 
 int new_game(SudokuField arraySudoku[][SUDOKU_SIZE]);
 int get_path(char path[], char folder[]);
-int init_game();
+int init_game(int difficulty);
 int init_game_path(char path[]);
 
 int main()
@@ -23,10 +23,9 @@ int main()
         exit = 0;
         back = 0;
         system("cls");
-        printf("[1] -> Choose Sudoku\n"
-               "[2] -> Generate Sudoku\n"
-               "[3] -> Load Sudoku\n"
-               "[4] -> Import Sudoku form File\n"
+        printf("[1] -> Generate Sudoku\n"
+               "[2] -> Load Sudoku\n"
+               "[3] -> Import Sudoku form File\n"
                "[x] -> Exit\n\n");
         switch(getch())
         {
@@ -41,9 +40,15 @@ int main()
                 switch(getch())
                 {
                 case '1':
+                    init_game(1);
+                    back = 1;
+                    break;
                 case '2':
+                    init_game(2);
+                    back = 1;
+                    break;
                 case '3':
-                    init_game();
+                    init_game(3);
                     back = 1;
                     break;
                 case 'x':
@@ -56,13 +61,10 @@ int main()
             while (!back);
             break;
         case '2':
-            init_game();
-            break;
-        case '3':
             get_path(path, SAVEFOLDER);
             init_game_path(path);
             break;
-        case '4':
+        case '3':
             get_path(path, SUBFOLDER);
             init_game_path(path);
             break;
@@ -181,11 +183,11 @@ int new_game(SudokuField arraySudoku[][SUDOKU_SIZE])
     return 0;
 }
 
-int init_game(char path[])
+int init_game(int difficulty)
 {
     SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE];
     fill_sudoku(arraySudoku);
-    generateSudoku(arraySudoku);
+    generateSudoku(arraySudoku, difficulty);
     set_editable(arraySudoku);
     new_game(arraySudoku);
     return 0;

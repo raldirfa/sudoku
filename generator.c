@@ -44,13 +44,31 @@ int is_valid(SudokuField sudoku[SUDOKU_SIZE][SUDOKU_SIZE], int row, int col, int
     return isOk;
 }
 
-void createEmptyFields(SudokuField randomPuzzle[SUDOKU_SIZE][SUDOKU_SIZE])
+void createEmptyFields(SudokuField randomPuzzle[SUDOKU_SIZE][SUDOKU_SIZE], int difficulty)
 {
     int counter = 0;
+    int target = 0;
     int randomRow = 0;
     int randomCol = 0;
     srand(time(NULL));
-    while(counter < 40)
+
+    switch(difficulty){
+        case 1:
+            target = 20;
+            break;
+        case 2:
+            target = 35;
+            break;
+        case 3:
+            target = 50;
+            break;
+        default:
+            target = 35;
+    }
+
+
+
+    while(counter < target)
     {
         counter++;
         randomRow = (rand() % SUDOKU_SIZE);

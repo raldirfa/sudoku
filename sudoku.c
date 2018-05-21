@@ -127,7 +127,7 @@ static int check_sudoku_boxes(SudokuField arraySudoku[][SUDOKU_SIZE])
 
 // Functions
 
-void generateSudoku(SudokuField arraySudoku[][SUDOKU_SIZE])
+void generateSudoku(SudokuField arraySudoku[][SUDOKU_SIZE], int difficulty)
 {
     int exit = 0;
 
@@ -145,7 +145,7 @@ void generateSudoku(SudokuField arraySudoku[][SUDOKU_SIZE])
         }
     }
     while (!exit);
-    createEmptyFields(arraySudoku);
+    createEmptyFields(arraySudoku, difficulty);
 }
 
 void fill_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE])
