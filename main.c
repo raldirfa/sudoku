@@ -140,22 +140,27 @@ int new_game(SudokuField arraySudoku[][SUDOKU_SIZE])
             }
             break;
         case 'H':
+            //Arrow-Key up
         case 'w':
             cursor.y--;
             break;
         case 'K':
+            //Arrow-Key left
         case 'a':
             cursor.x--;
             break;
         case 'P':
+            //Arrow-Key down
         case 's':
             cursor.y++;
             break;
         case 'M':
+            //Arrow-Key right
         case 'd':
             cursor.x++;
             break;
         case 13:
+            // 13 is the Enter-Key
             if ( arraySudoku[cursor.y][cursor.x].isEditable)
             {
                 printf("Value to insert: ");
