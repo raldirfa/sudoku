@@ -4,8 +4,13 @@
 
 #include "generator.h"
 
+/*Variable, welche die Nullstellen darstellen soll*/
 #define UNASSIGNED 0
 
+/*
+Diese Funktion geht jede Spalte, jedes Feld und jede Zeile und prüft,
+ob die Zahlen von 1-9 jeweils nur einaml vorkommen.
+*/
 int is_valid(SudokuField sudoku[SUDOKU_SIZE][SUDOKU_SIZE], int row, int col, int number)
 {
     int isOk = 1;
@@ -44,6 +49,10 @@ int is_valid(SudokuField sudoku[SUDOKU_SIZE][SUDOKU_SIZE], int row, int col, int
     return isOk;
 }
 
+/*
+   Diese Funktion legt den Schwierigkeitsgrad des zu generierenden Spiels fest
+   und generiert dann die Nullstellen für das Sudoku-Spiel. Je mehr Nullen, desto schwieriger.
+*/
 void createEmptyFields(SudokuField randomPuzzle[SUDOKU_SIZE][SUDOKU_SIZE], int difficulty)
 {
     int counter = 0;
@@ -84,7 +93,10 @@ void createEmptyFields(SudokuField randomPuzzle[SUDOKU_SIZE][SUDOKU_SIZE], int d
     }
 }
 
-
+/* Diese Funktion generiert Zufallszahlen und setzt diese 
+   nach den Regeln des Sudoku-Spiels in die jeweiligen Felder ein.
+*/
+   
 int createRandomPuzzle(SudokuField randomPuzzle[SUDOKU_SIZE][SUDOKU_SIZE])
 {
     srand(time(NULL));
@@ -119,6 +131,10 @@ int createRandomPuzzle(SudokuField randomPuzzle[SUDOKU_SIZE][SUDOKU_SIZE])
 }
 
 //Ab hier :https://gist.github.com/bopbi/c9f94b1b981b84bcb02b
+/*
+  Diese Funktion gibt zurück, ob es sich bei dem jeweiligen Eintrag
+  um einen zugewiesenen(1-9) oder um einen 'leeren' Eintrag(0) handelt.
+*/
 int find_unassigned(SudokuField grid[SUDOKU_SIZE][SUDOKU_SIZE], int *row, int *col)
 {
     for (*row = 0; *row < SUDOKU_SIZE; (*row)++)
@@ -133,7 +149,15 @@ int find_unassigned(SudokuField grid[SUDOKU_SIZE][SUDOKU_SIZE], int *row, int *c
     }
     return 0;
 }
-
+/* 
+ Die Lösungsfunktion des Sudoku-Spiels nach dem Backtracking-Prinzip.
+ Werden keine invaliden Zahlen mehr gefunden gilt das Spiel als gelöst.
+ Wird jedoch eine invalide Zahl gefunden wird diese als nicht zugewiesen markiert 
+ und die Funktion läuft solange durch bis das Spiel gelöst ist bzw. sich herausstellt, dass 
+ das Spiel nicht gelöst werden kann.
+*/
+ 
+ 
 int solve(SudokuField grid[SUDOKU_SIZE][SUDOKU_SIZE])
 {
     int row = 0;
