@@ -95,7 +95,7 @@ int new_game(SudokuField arraySudoku[][SUDOKU_SIZE])
     time_t now;         //current timestamp
     time_t start;       //timestamp of game start
     time(&start);
-    double seconds;
+    double seconds;     //delta between start and now
 
     do
     {
@@ -217,7 +217,7 @@ int init_game_path(char path[])
             }
             loaded = 1;
         }
-        else
+        else//difficulty: easy
         {
             int arrayFile[SUDOKU_BOARD_SIZE + 1];
             if(read_file_and_fill_array(arrayFile, path))
