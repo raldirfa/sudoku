@@ -5,6 +5,7 @@
 #include "file_operations.h"
 
 // From https://stackoverflow.com/a/3463793
+// Load a file and convert to an array
 int read_file_and_fill_array(int arrayToFill[], char filepath[])
 {
     FILE *file;
@@ -29,6 +30,7 @@ int read_file_and_fill_array(int arrayToFill[], char filepath[])
     return 1;
 }
 
+// Saves the complete Sudoku struct in a ".chan" file. The filename can be determined by the user
 int save_sudoku(SudokuField arrayToSave[SUDOKU_SIZE][SUDOKU_SIZE], char filename[])
 {
     FILE *outfile;
@@ -58,6 +60,7 @@ int save_sudoku(SudokuField arrayToSave[SUDOKU_SIZE][SUDOKU_SIZE], char filename
     return 0;
 }
 
+// Loads a previously saved Sudoku
 int load_sudoku(char filepath[], SudokuField sudoku[SUDOKU_SIZE][SUDOKU_SIZE])
 {
     FILE *file;
@@ -80,6 +83,7 @@ int load_sudoku(char filepath[], SudokuField sudoku[SUDOKU_SIZE][SUDOKU_SIZE])
     return 0;
 }
 
+// Shows the user possible files
 int get_path(char path[], char folder[])
 {
     char temp[100];

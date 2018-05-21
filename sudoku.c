@@ -7,6 +7,7 @@
 #include "generator.h"
 
 // Static functions
+// Fill the check_array with zeros, to reuse the array
 static void fill_checkArray(int array[SUDOKU_SIZE])
 {
     int i;
@@ -16,6 +17,7 @@ static void fill_checkArray(int array[SUDOKU_SIZE])
     }
 }
 
+// Print the horizontal seperators
 static void print_horizontal_seperator()
 {
     int i, j;
@@ -30,6 +32,7 @@ static void print_horizontal_seperator()
     printf("+\n");
 }
 
+// Check if the rows are correct
 static int check_sudoku_rows(SudokuField arraySudoku[][SUDOKU_SIZE])
 {
     int i, j, x;
@@ -59,6 +62,7 @@ static int check_sudoku_rows(SudokuField arraySudoku[][SUDOKU_SIZE])
     return 0;
 }
 
+// Check if the columns are correct
 static int check_sudoku_cols(SudokuField arraySudoku[][SUDOKU_SIZE])
 {
     int i, j, x;
@@ -88,6 +92,7 @@ static int check_sudoku_cols(SudokuField arraySudoku[][SUDOKU_SIZE])
     return 0;
 }
 
+// Check if the boxes are correct
 static int check_sudoku_boxes(SudokuField arraySudoku[][SUDOKU_SIZE])
 {
     int i, j, k, l, x;
@@ -127,6 +132,7 @@ static int check_sudoku_boxes(SudokuField arraySudoku[][SUDOKU_SIZE])
 
 // Functions
 
+// Use the generate library to generate a sudoku
 void generateSudoku(SudokuField arraySudoku[][SUDOKU_SIZE], int difficulty)
 {
     int exit = 0;
@@ -148,6 +154,7 @@ void generateSudoku(SudokuField arraySudoku[][SUDOKU_SIZE], int difficulty)
     createEmptyFields(arraySudoku, difficulty);
 }
 
+// Fill a sudoku with zeros
 void fill_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE])
 {
     int i, j;
@@ -160,6 +167,7 @@ void fill_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE])
     }
 }
 
+// Shows the user the sudoku, possibly error messages and the menu
 void print_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE], Cursor cursor, char message[])
 {
     int i, j;
@@ -208,6 +216,7 @@ void print_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE], Cursor curs
            "[x] to exit the game\n\n");
 }
 
+// Check if the sudoku is correct
 int check_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE])
 {
     int isMissingRow, isMissingCols, isMissingBoxes;
@@ -224,6 +233,7 @@ int check_sudoku(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE])
     return 1;
 }
 
+// Sets the editability of the fields if they are not specified
 void set_editable(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE])
 {
     int i, j;
@@ -244,6 +254,7 @@ void set_editable(SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE])
     }
 }
 
+// Moves the cursor to its new location while checking if the cursor is out of bounds
 void check_and_move_sudoku_cursor(Cursor *cursor)
 {
     // Up

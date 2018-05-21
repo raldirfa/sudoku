@@ -83,6 +83,7 @@ int main()
     return 0;
 }
 
+// Starts a new game
 int new_game(SudokuField arraySudoku[][SUDOKU_SIZE])
 {
     int won = 0;
@@ -192,6 +193,7 @@ int new_game(SudokuField arraySudoku[][SUDOKU_SIZE])
     return 0;
 }
 
+// Generate a new Sudoku
 int init_game(int difficulty)
 {
     SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE];
@@ -202,6 +204,7 @@ int init_game(int difficulty)
     return 0;
 }
 
+// Load or Import a Sudoku from a path
 int init_game_path(char path[])
 {
     SudokuField arraySudoku[SUDOKU_SIZE][SUDOKU_SIZE];
@@ -217,7 +220,7 @@ int init_game_path(char path[])
             }
             loaded = 1;
         }
-        else//difficulty: easy
+        else
         {
             int arrayFile[SUDOKU_BOARD_SIZE + 1];
             if(read_file_and_fill_array(arrayFile, path))
