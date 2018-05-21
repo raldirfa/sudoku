@@ -40,18 +40,22 @@ int main()
                 switch(getch())
                 {
                 case '1':
+                    //difficulty: easy
                     init_game(1);
                     back = 1;
                     break;
                 case '2':
+                    //difficulty: medium
                     init_game(2);
                     back = 1;
                     break;
                 case '3':
+                    //difficulty: hard
                     init_game(3);
                     back = 1;
                     break;
                 case 'x':
+                    //exit
                     back = 1;
                     break;
                 default:
@@ -88,8 +92,8 @@ int new_game(SudokuField arraySudoku[][SUDOKU_SIZE])
     char filename[100];
     char message[100] = "";
 
-    time_t now;
-    time_t start;
+    time_t now;         //current timestamp
+    time_t start;       //timestamp of game start
     time(&start);
     double seconds;
 
